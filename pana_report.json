@@ -1,0 +1,188 @@
+{
+ "createdAt": "2025-08-22T10:52:04.761026",
+ "runtimeInfo": {
+  "panaVersion": "0.22.22",
+  "sdkVersion": "3.8.1",
+  "flutterVersions": {
+   "frameworkVersion": "3.32.8",
+   "channel": "stable",
+   "repositoryUrl": "https://github.com/flutter/flutter.git",
+   "frameworkRevision": "edada7c56edf4a183c1735310e123c7f923584f1",
+   "frameworkCommitDate": "2025-07-25 14:08:03 +0000",
+   "engineRevision": "ef0cd000916d64fa0c5d09cc809fa7ad244a5767",
+   "engineCommitDate": "2025-07-24 12:23:50 -0700",
+   "dartSdkVersion": "3.8.1",
+   "devToolsVersion": "2.45.1",
+   "flutterVersion": "3.32.8",
+   "flutterRoot": "C:\\src\\flutter"
+  }
+ },
+ "packageName": "flutter_file_upload",
+ "packageVersion": "0.0.1",
+ "pubspec": {
+  "name": "flutter_file_upload",
+  "description": "Advanced cross-platform file upload with progress, chunking, and resume.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Dhia-Bechattaoui/flutter_file_upload",
+  "repository": "https://github.com/Dhia-Bechattaoui/flutter_file_upload",
+  "issue_tracker": "https://github.com/Dhia-Bechattaoui/flutter_file_upload/issues",
+  "topics": [
+   "upload",
+   "http",
+   "file",
+   "progress",
+   "resumable"
+  ],
+  "environment": {
+   "sdk": "^3.5.0",
+   "flutter": ">=3.16.0"
+  },
+  "dependencies": {
+   "flutter": {
+    "sdk": "flutter"
+   },
+   "meta": "^1.12.0",
+   "http": "^1.2.2",
+   "plugin_platform_interface": "^2.1.8",
+   "flutter_web_plugins": {
+    "sdk": "flutter"
+   },
+   "web": "^1.0.0"
+  },
+  "dev_dependencies": {
+   "flutter_test": {
+    "sdk": "flutter"
+   },
+   "flutter_lints": "^5.0.0",
+   "test": "^1.25.8"
+  },
+  "flutter": null,
+  "platforms": {
+   "android": null,
+   "ios": null,
+   "web": null,
+   "windows": null,
+   "macos": null,
+   "linux": null
+  },
+  "example": {
+   "path": "example"
+  }
+ },
+ "licenseFile": {
+  "path": "LICENSE",
+  "name": "MIT"
+ },
+ "licenses": [
+  {
+   "path": "LICENSE",
+   "spdxIdentifier": "MIT"
+  }
+ ],
+ "allDependencies": [
+  "async",
+  "characters",
+  "collection",
+  "flutter",
+  "flutter_lints",
+  "flutter_test",
+  "flutter_web_plugins",
+  "http",
+  "http_parser",
+  "material_color_utilities",
+  "meta",
+  "path",
+  "plugin_platform_interface",
+  "source_span",
+  "string_scanner",
+  "term_glyph",
+  "test",
+  "typed_data",
+  "vector_math",
+  "web"
+ ],
+ "tags": [
+  "sdk:flutter",
+  "platform:android",
+  "platform:ios",
+  "platform:windows",
+  "platform:linux",
+  "platform:macos",
+  "platform:web",
+  "is:null-safe",
+  "is:wasm-ready",
+  "is:dart3-compatible",
+  "license:mit",
+  "license:fsf-libre",
+  "license:osi-approved",
+  "topic:upload",
+  "topic:http",
+  "topic:file",
+  "topic:progress",
+  "topic:resumable"
+ ],
+ "report": {
+  "sections": [
+   {
+    "id": "convention",
+    "title": "Follow Dart file conventions",
+    "grantedPoints": 30,
+    "maxPoints": 30,
+    "status": "partial",
+    "summary": "### [~] 10/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\nHomepage URL doesn't exist.\n</summary>\n\nAt the time of the analysis `https://github.com/Dhia-Bechattaoui/flutter_file_upload` was unreachable. Make sure that the website is reachable via [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD) requests.\n</details>\n\n<details>\n<summary>\nRepository URL doesn't exist.\n</summary>\n\nAt the time of the analysis `https://github.com/Dhia-Bechattaoui/flutter_file_upload` was unreachable. Make sure that the website is reachable via [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD) requests.\n</details>\n\n<details>\n<summary>\nIssue tracker URL doesn't exist.\n</summary>\n\nAt the time of the analysis `https://github.com/Dhia-Bechattaoui/flutter_file_upload/issues` was unreachable. Make sure that the website is reachable via [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD) requests.\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `MIT`.\n"
+   },
+   {
+    "id": "documentation",
+    "title": "Provide documentation",
+    "grantedPoints": 20,
+    "maxPoints": 20,
+    "status": "passed",
+    "summary": "### [*] 10/10 points: 20% or more of the public API has dartdoc comments\n\n12 out of 38 API elements (31.6 %) have documentation comments.\n\nSome symbols that are missing documentation: `flutter_file_upload`, `flutter_file_upload.FileUploader.FileUploader.new`, `flutter_file_upload.FileUploader.upload`, `flutter_file_upload.FlutterFileUpload`, `flutter_file_upload.FlutterFileUpload.FlutterFileUpload.new`.\n\n### [*] 10/10 points: Package has an example\n"
+   },
+   {
+    "id": "platform",
+    "title": "Platform support",
+    "grantedPoints": 20,
+    "maxPoints": 20,
+    "status": "passed",
+    "summary": "### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)\n\n* Γ£ô Android\n\n* Γ£ô iOS\n\n* Γ£ô Windows\n\n* Γ£ô Linux\n\n* Γ£ô macOS\n\n* Γ£ô Web\n\n### [*] 0/0 points: WASM compatibility\n\nThis package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.\n\nSee https://dart.dev/web/wasm for details.\n"
+   },
+   {
+    "id": "analysis",
+    "title": "Pass static analysis",
+    "grantedPoints": 50,
+    "maxPoints": 50,
+    "status": "passed",
+    "summary": "### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues\n"
+   },
+   {
+    "id": "dependency",
+    "title": "Support up-to-date dependencies",
+    "grantedPoints": 40,
+    "maxPoints": 40,
+    "status": "passed",
+    "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|Notes|\n|:-|:-|:-|:-|:-|\n|[`http`]|`^1.2.2`|1.5.0|1.5.0||\n|[`meta`]|`^1.12.0`|1.16.0|1.17.0||\n|[`plugin_platform_interface`]|`^2.1.8`|2.1.8|2.1.8||\n|[`web`]|`^1.0.0`|1.1.1|1.1.1||\n\n<details><summary>Transitive dependencies</summary>\n\n|Package|Constraint|Compatible|Latest|Notes|\n|:-|:-|:-|:-|:-|\n|[`async`]|-|2.13.0|2.13.0||\n|[`characters`]|-|1.4.0|1.4.1||\n|[`collection`]|-|1.19.1|1.19.1||\n|[`http_parser`]|-|4.1.2|4.1.2||\n|[`material_color_utilities`]|-|0.11.1|0.13.0||\n|[`path`]|-|1.9.1|1.9.1||\n|[`source_span`]|-|1.10.1|1.10.1||\n|[`string_scanner`]|-|1.4.1|1.4.1||\n|[`term_glyph`]|-|1.2.2|1.2.2||\n|[`typed_data`]|-|1.4.0|1.4.0||\n|[`vector_math`]|-|2.1.4|2.2.0||\n</details>\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`http`]: https://pub.dev/packages/http\n[`meta`]: https://pub.dev/packages/meta\n[`plugin_platform_interface`]: https://pub.dev/packages/plugin_platform_interface\n[`web`]: https://pub.dev/packages/web\n[`async`]: https://pub.dev/packages/async\n[`characters`]: https://pub.dev/packages/characters\n[`collection`]: https://pub.dev/packages/collection\n[`http_parser`]: https://pub.dev/packages/http_parser\n[`material_color_utilities`]: https://pub.dev/packages/material_color_utilities\n[`path`]: https://pub.dev/packages/path\n[`source_span`]: https://pub.dev/packages/source_span\n[`string_scanner`]: https://pub.dev/packages/string_scanner\n[`term_glyph`]: https://pub.dev/packages/term_glyph\n[`typed_data`]: https://pub.dev/packages/typed_data\n[`vector_math`]: https://pub.dev/packages/vector_math\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n\n### [*] 20/20 points: Compatible with dependency constraint lower bounds\n\n`pub downgrade` does not expose any static analysis error.\n"
+   }
+  ]
+ },
+ "screenshots": [],
+ "result": {
+  "homepageUrl": "https://github.com/Dhia-Bechattaoui/flutter_file_upload",
+  "repositoryUrl": "https://github.com/Dhia-Bechattaoui/flutter_file_upload",
+  "issueTrackerUrl": "https://github.com/Dhia-Bechattaoui/flutter_file_upload/issues",
+  "repositoryStatus": "inconclusive",
+  "licenses": [
+   {
+    "path": "LICENSE",
+    "spdxIdentifier": "MIT"
+   }
+  ],
+  "grantedPoints": 160,
+  "maxPoints": 160
+ },
+ "urlProblems": [],
+ "scores": {
+  "grantedPoints": 160,
+  "maxPoints": 160
+ }
+}

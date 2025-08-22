@@ -1,0 +1,34 @@
+# Misc
+*.log
+*.tmp
+*.lock
+*.swp
+*.swo
+*.orig
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code
+.vscode/
+.history/
+
+# Flutter/Dart
+.dart_tool/
+.packages
+.buildlog/
+.pub-cache/
+.pub/
+build/
+coverage/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Local env
+.env
+.env.*
