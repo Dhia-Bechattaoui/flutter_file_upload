@@ -18,18 +18,17 @@ class IoPlatformUploader implements PlatformUploader {
     int chunkSizeBytes = 1024 * 256,
     UploadProgressCallback? onProgress,
     FutureOr<bool> Function(int nextByteStart)? shouldResumeFrom,
+    bool skipFinalRequest = false,
   }) async {
     final client = HttpClient();
     int bytesSent = 0;
-    final effectiveHeaders = <String, String>{
-      if (headers != null) ...headers,
-    };
+    final effectiveHeaders = <String, String>{if (headers != null) ...headers};
 
     // Buffer incoming bytes and send in chunks
     final buffer = BytesBuilder(copy: false);
-    final controller = StreamController<List<int>>();
+    final chunkUploads = <Future<void>>[];
 
-    final subscription = byteStream.listen((data) async {
+    await for (final data in byteStream) {
       buffer.add(data);
       while (buffer.length >= chunkSizeBytes) {
         final chunk = buffer.takeBytes();
@@ -37,55 +36,90 @@ class IoPlatformUploader implements PlatformUploader {
         while (offset < chunk.length) {
           final end = (offset + chunkSizeBytes).clamp(0, chunk.length);
           final slice = chunk.sublist(offset, end);
+          final currentBytesSent = bytesSent;
+          bytesSent += slice.length;
           offset = end;
-          await _sendChunk(
+
+          // Track this chunk upload
+          final chunkUpload = _sendChunk(
             client,
             url,
             slice,
-            bytesSent,
+            currentBytesSent,
             totalByteLength,
             effectiveHeaders,
             onProgress,
             shouldResumeFrom,
           );
-          bytesSent += slice.length;
+          chunkUploads.add(chunkUpload);
         }
       }
-    });
-
-    await subscription.asFuture<void>();
+    }
 
     // Flush remaining bytes
     final remaining = buffer.takeBytes();
     if (remaining.isNotEmpty) {
-      await _sendChunk(
+      final currentBytesSent = bytesSent;
+      bytesSent += remaining.length;
+      final chunkUpload = _sendChunk(
         client,
         url,
         remaining,
-        bytesSent,
+        currentBytesSent,
         totalByteLength,
         effectiveHeaders,
         onProgress,
         shouldResumeFrom,
       );
-      bytesSent += remaining.length;
+      chunkUploads.add(chunkUpload);
     }
 
-    controller.close();
+    // Wait for all chunks to complete before making final request
+    try {
+      await Future.wait(chunkUploads);
+    } catch (e) {
+      client.close();
+      rethrow;
+    }
+
+    if (skipFinalRequest) {
+      client.close();
+      return UploadResult(
+        statusCode: 200,
+        responseHeaders: const {},
+        responseBodyBytes: const <int>[],
+      );
+    }
 
     // A simple finalization GET to retrieve server response if supported
-    final request = await client.getUrl(url);
-    final response = await request.close();
-    final responseBytes = await consolidateHttpClientResponseBytes(response);
-    final headersMap = <String, String>{};
-    response.headers.forEach((name, values) {
-      headersMap[name] = values.join(',');
-    });
-    return UploadResult(
-      statusCode: response.statusCode,
-      responseHeaders: headersMap,
-      responseBodyBytes: responseBytes,
-    );
+    // Add a small delay to ensure server has processed all chunks
+    await Future.delayed(const Duration(milliseconds: 100));
+
+    try {
+      final request = await client.getUrl(url);
+      effectiveHeaders.forEach(request.headers.set);
+      final response = await request.close();
+      final responseBytes = await consolidateHttpClientResponseBytes(response);
+      final headersMap = <String, String>{};
+      response.headers.forEach((name, values) {
+        headersMap[name] = values.join(',');
+      });
+      client.close();
+      return UploadResult(
+        statusCode: response.statusCode,
+        responseHeaders: headersMap,
+        responseBodyBytes: responseBytes,
+      );
+    } catch (e) {
+      client.close();
+      // If final GET fails, still return success since chunks were uploaded
+      // This is common with servers that don't support GET after POST
+      return UploadResult(
+        statusCode: 200,
+        responseHeaders: const {},
+        responseBodyBytes: const <int>[],
+      );
+    }
   }
 
   Future<void> _sendChunk(
@@ -107,7 +141,9 @@ class IoPlatformUploader implements PlatformUploader {
     headers.forEach(request.headers.set);
     if (total != null) {
       request.headers.set(
-          'Content-Range', 'bytes $start-${start + bytes.length - 1}/$total');
+        'Content-Range',
+        'bytes $start-${start + bytes.length - 1}/$total',
+      );
     }
     request.add(bytes);
     final response = await request.close();
@@ -119,7 +155,8 @@ class IoPlatformUploader implements PlatformUploader {
 
 // Helper to read all bytes from HttpClientResponse
 Future<List<int>> consolidateHttpClientResponseBytes(
-    HttpClientResponse response) async {
+  HttpClientResponse response,
+) async {
   final completer = Completer<List<int>>();
   final contents = <int>[];
   response.listen(

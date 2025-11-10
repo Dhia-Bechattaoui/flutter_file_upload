@@ -14,6 +14,7 @@ class FakeUploader implements PlatformUploader {
     int chunkSizeBytes = 1024 * 256,
     UploadProgressCallback? onProgress,
     FutureOr<bool> Function(int nextByteStart)? shouldResumeFrom,
+    bool skipFinalRequest = false,
   }) async {
     int sent = 0;
     await for (final chunk in byteStream) {
@@ -25,34 +26,39 @@ class FakeUploader implements PlatformUploader {
       onProgress?.call(sent, totalByteLength);
     }
     return const UploadResult(
-        statusCode: 200, responseHeaders: {}, responseBodyBytes: <int>[]);
+      statusCode: 200,
+      responseHeaders: {},
+      responseBodyBytes: <int>[],
+    );
   }
 }
 
 void main() {
-  test('progress callback receives updates (fake uploader, no network)',
-      () async {
-    final uploader = FileUploader(FakeUploader());
+  test(
+    'progress callback receives updates (fake uploader, no network)',
+    () async {
+      final uploader = FileUploader(FakeUploader());
 
-    final controller = StreamController<List<int>>();
-    final progresses = <int>[];
+      final controller = StreamController<List<int>>();
+      final progresses = <int>[];
 
-    unawaited(() async {
-      controller.add(List<int>.filled(4, 1));
-      controller.add(List<int>.filled(4, 2));
-      controller.add(List<int>.filled(4, 3));
-      await controller.close();
-    }());
+      unawaited(() async {
+        controller.add(List<int>.filled(4, 1));
+        controller.add(List<int>.filled(4, 2));
+        controller.add(List<int>.filled(4, 3));
+        await controller.close();
+      }());
 
-    await uploader.upload(
-      Uri.parse('http://localhost/unused'),
-      byteStream: controller.stream,
-      totalByteLength: 12,
-      chunkSizeBytes: 4,
-      onProgress: (sent, total) => progresses.add(sent),
-      shouldResumeFrom: (start) async => true,
-    );
+      await uploader.upload(
+        Uri.parse('http://localhost/unused'),
+        byteStream: controller.stream,
+        totalByteLength: 12,
+        chunkSizeBytes: 4,
+        onProgress: (sent, total) => progresses.add(sent),
+        shouldResumeFrom: (start) async => true,
+      );
 
-    expect(progresses, containsAllInOrder([4, 8, 12]));
-  });
+      expect(progresses, containsAllInOrder([4, 8, 12]));
+    },
+  );
 }

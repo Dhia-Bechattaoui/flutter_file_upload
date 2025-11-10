@@ -1,6 +1,6 @@
 name: flutter_file_upload
 description: Advanced cross-platform file upload with progress, chunking, and resume.
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/Dhia-Bechattaoui/flutter_file_upload
 repository: https://github.com/Dhia-Bechattaoui/flutter_file_upload
 issue_tracker: https://github.com/Dhia-Bechattaoui/flutter_file_upload/issues
@@ -11,16 +11,19 @@ topics:
   - progress
   - resumable
 
+funding:
+  - https://github.com/sponsors/Dhia-Bechattaoui
+
 environment:
-  sdk: ^3.5.0
-  flutter: ">=3.16.0"
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: ">=3.32.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  meta: ^1.12.0
-  http: ^1.2.2
-  plugin_platform_interface: ^2.1.8
+  meta: ^1.0.0
+  http: ^1.0.0
+  plugin_platform_interface: ^2.0.0
   flutter_web_plugins:
     sdk: flutter
   web: ^1.0.0
@@ -28,8 +31,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
-  test: ^1.25.8
+  flutter_lints: ^6.0.0
+  test: ^1.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -28,6 +28,7 @@ abstract class PlatformUploader {
     int chunkSizeBytes,
     UploadProgressCallback? onProgress,
     FutureOr<bool> Function(int nextByteStart)? shouldResumeFrom,
+    bool skipFinalRequest = false,
   });
 }
 
@@ -58,6 +59,7 @@ class FileUploader {
     int chunkSizeBytes = 1024 * 256,
     UploadProgressCallback? onProgress,
     FutureOr<bool> Function(int nextByteStart)? shouldResumeFrom,
+    bool skipFinalRequest = false,
   }) async {
     return _platform.upload(
       url: url,
@@ -67,6 +69,7 @@ class FileUploader {
       chunkSizeBytes: chunkSizeBytes,
       onProgress: onProgress,
       shouldResumeFrom: shouldResumeFrom,
+      skipFinalRequest: skipFinalRequest,
     );
   }
 }
